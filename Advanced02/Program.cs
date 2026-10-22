@@ -4,10 +4,13 @@ using System.Threading.Channels;
 namespace Advanced02
 {
     internal class Program
-    { 
+    {
+
+        // Func<Product, bool> is used to search products based on a condition.
         static List<Product> SearchProducts(List<Product> products, Func<Product, bool> filter)
         {
-             List<Product> result = new List<Product>();
+            List<Product> result = new List<Product>();
+
             foreach (Product p in products)
             {
                 if (filter(p))
@@ -15,44 +18,48 @@ namespace Advanced02
                     result.Add(p);
                 }
             }
-            return result;
 
+            return result;
         }
 
+        // Action<Product> is used to print products without returning a value.
         static void PrintReport(List<Product> products, Action<Product> report)
         {
             foreach (Product p in products)
             {
                 report(p);
-
             }
         }
 
-        static List<string> TransformProducts(List<Product> products,Func<Product,string> transform)
+        // Func<Product, string> is used to convert each product into a string.
+        static List<string> TransformProducts(List<Product> products, Func<Product, string> transform)
         {
             List<string> result2 = new List<string>();
+
             foreach (Product p in products)
             {
-                
                 result2.Add(transform(p));
             }
+
             return result2;
         }
 
-        static List<Product> FilterProducts(List<Product> products,Predicate<Product> filter)
+        // Predicate<Product> is used to filter products based on a true or false condition.
+        static List<Product> FilterProducts(List<Product> products, Predicate<Product> filter)
         {
             List<Product> filtered = new List<Product>();
 
-            foreach(Product p in products)
+            foreach (Product p in products)
             {
                 if (filter(p))
                 {
                     filtered.Add(p);
-                
                 }
             }
+
             return filtered;
         }
+
 
         static void Main(string[] args)
         {
