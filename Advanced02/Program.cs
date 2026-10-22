@@ -39,6 +39,21 @@ namespace Advanced02
             return result2;
         }
 
+        static List<Product> FilterProducts(List<Product> products,Predicate<Product> filter)
+        {
+            List<Product> filtered = new List<Product>();
+
+            foreach(Product p in products)
+            {
+                if (filter(p))
+                {
+                    filtered.Add(p);
+                
+                }
+            }
+            return filtered;
+        }
+
         static void Main(string[] args)
         {
 
@@ -122,12 +137,16 @@ namespace Advanced02
               Console.WriteLine(s);
             }
 
+
             #endregion
 
 
-
-
-
+            Console.WriteLine("\n-----low stock---------");
+            List<Product> filter = FilterProducts(catalog, p => p.Stock < 20);
+            foreach (Product p in filter)
+            {
+                Console.WriteLine($"[LOW STOCK]{p.Name}:only {p.Stock} left");
+            }
         }
     }
 }
