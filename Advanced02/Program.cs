@@ -21,12 +21,22 @@ namespace Advanced02
 
         static void PrintReport(List<Product> products, Action<Product> report)
         {
-            List<Product> products02 = new List<Product>();
             foreach (Product p in products)
             {
                 report(p);
 
             }
+        }
+
+        static List<string> TransformProducts(List<Product> products,Func<Product,string> transform)
+        {
+            List<string> result2 = new List<string>();
+            foreach (Product p in products)
+            {
+                
+                result2.Add(transform(p));
+            }
+            return result2;
         }
 
         static void Main(string[] args)
@@ -94,8 +104,26 @@ namespace Advanced02
             Console.WriteLine("\n--- Detailed Report ---");
 
             PrintReport(catalog, p => { Console.WriteLine($"[{p.Category}] {p.Name} | {p.Price} |{p.Stock}"); });
-          
-          #endregion
+
+            Console.WriteLine("\n--- Product Summaries ---");
+
+            List<string> summary = TransformProducts(catalog, p => $"{p.Name} ({p.Price})") ;
+
+            foreach (string s in summary)
+            {
+                Console.WriteLine(s);
+            }
+            Console.WriteLine("\n--- Price Labels ---");
+
+            List<string> lables = TransformProducts(catalog, p => p.Price>100? $"{p.Name}: Expensive!": $"{p.Name}:Affordable");
+
+            foreach(string s in lables)
+            { 
+              Console.WriteLine(s);
+            }
+
+            #endregion
+
 
 
 
