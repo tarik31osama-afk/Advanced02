@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Threading.Channels;
 
 namespace Advanced02
 {
@@ -17,7 +18,16 @@ namespace Advanced02
             return result;
 
         }
-           
+
+        static void PrintReport(List<Product> products, Action<Product> report)
+        {
+            List<Product> products02 = new List<Product>();
+            foreach (Product p in products)
+            {
+                report(p);
+
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -72,8 +82,21 @@ namespace Advanced02
             {
                 Console.WriteLine($"{p.Name} - ${p.Price} (Stock: {p.Stock})");
             }
-            
             #endregion
+
+            #region task03
+
+            
+            Console.WriteLine("\n--- Short Report ---");
+
+            PrintReport(catalog, p => { Console.WriteLine($"{p.Name}-{p.Price}"); });
+
+            Console.WriteLine("\n--- Detailed Report ---");
+
+            PrintReport(catalog, p => { Console.WriteLine($"[{p.Category}] {p.Name} | {p.Price} |{p.Stock}"); });
+          
+          #endregion
+
 
 
 
